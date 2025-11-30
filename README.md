@@ -6,6 +6,7 @@
 <title>Birthday Journey - Happy Birthday Jojo 🎉</title>
 <style>
   html, body { margin:0; padding:0; height:100%; font-family: system-ui, sans-serif; overflow:hidden; background:#ffffff; }
+  .content { position:relative; z-index:1; }
   .page { display:none; width:100%; height:100%; position:absolute; top:0; left:0; justify-content:center; align-items:center; flex-direction:column; text-align:center; padding:20px; box-sizing:border-box; }
   .page.show { display:flex; }
 
@@ -35,6 +36,7 @@
 </style>
 </head>
 <body>
+<div class="content">
 
 <!-- Landing Page -->
 <div id="landing" class="page show">
@@ -83,7 +85,7 @@
   <button class="back-btn" onclick="goBackDetail()">Back</button>
 </div>
 
-<canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;"></canvas>
+<canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
 
 <script>
 const landing=document.getElementById('landing');
@@ -121,5 +123,6 @@ function animate(){ ctx.clearRect(0,0,innerWidth,innerHeight); confetti.forEach(
 animate();
 </script>
 
+</div>
 </body>
 </html>

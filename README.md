@@ -1,4 +1,5 @@
 
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        background: #f9f5ef; /* beige */
+        background: #ffffff; /* white */
         transition: 0.4s;
     }
 
@@ -31,9 +32,15 @@
     }
 
     h1 {
-        font-size: 42px;
+        font-size: 48px;
         margin-bottom: 10px;
         color: #333;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #666;
+        margin-bottom: 20px;
     }
 
     p {
@@ -115,10 +122,41 @@
         background: #f2f2f2;
         transform: scale(1.05);
     }
+
+    /* CONFETTI BACKGROUND */
+    .confetti-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .confetti-piece {
+        position: absolute;
+        width: 8px;
+        height: 14px;
+        background: gold;
+        opacity: 0.7;
+        transform: rotate(15deg);
+        border-radius: 2px;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-50px) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
 </style>
 </head>
 
 <body>
+
+<!-- GOLD CONFETTI BACKGROUND -->
+<div class="confetti-bg" id="confetti"></div>
 
 <!-- PAGE 1 — FIRST INTERFACE -->
 <div id="page1" class="page active">
@@ -200,8 +238,26 @@ function showPage(id) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
+
+// Generate gold confetti pieces
+function createConfetti() {
+    const confettiContainer = document.getElementById("confetti");
+    const colors = ["gold", "#f5d76e", "#e6c24c", "#ffeb99"]; 
+
+    for (let i = 0; i < 60; i++) {
+        let piece = document.createElement("div");
+        piece.classList.add("confetti-piece");
+
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.animationDuration = 3 + Math.random() * 4 + "s";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        confettiContainer.appendChild(piece);
+    }
+}
+
+createConfetti();
 </script>
 
 </body>
 </html>
-

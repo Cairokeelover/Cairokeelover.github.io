@@ -272,7 +272,8 @@
             <div class="calendar-header">Year</div>
             <div class="calendar-year">2040</div>
         </div>
-        <div class="year-box" onclick="showPage('page3')">
+        <!-- "More..." box -->
+        <div class="year-box" onclick="showPage('pageMore')">
             <div class="calendar-header">Year</div>
             <div class="calendar-year">more...</div>
         </div>
@@ -311,6 +312,16 @@
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Birthday Letters</h1>
     <p>(Letters + names go here)</p>
+</div>
+
+<!-- PAGE — MORE YEARS MESSAGE -->
+<div id="pageMore" class="page">
+    <button class="back" onclick="showPage('page2')">← Back</button>
+    <h1>🎉 More Years Ahead 🎉</h1>
+    <p>
+        More years come with joy, happiness, and wonderful memories!  
+        May each year bring you laughter, love, and success.
+    </p>
 </div>
 
 <script>

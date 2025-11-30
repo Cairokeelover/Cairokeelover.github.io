@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -83,7 +83,7 @@
   <button class="back-btn" onclick="goBackDetail()">Back</button>
 </div>
 
-<canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+<canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;"></canvas>
 
 <script>
 const landing=document.getElementById('landing');
@@ -116,7 +116,7 @@ const ctx=confettiCanvas.getContext('2d');
 let confetti=[];
 function resize(){ confettiCanvas.width=window.innerWidth; confettiCanvas.height=window.innerHeight; }
 window.addEventListener('resize',resize); resize();
-for(let i=0;i<150;i++){ confetti.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*6+2,dx:(Math.random()-0.5)*1,dy:Math.random()*2+1,color:`hsl(${Math.random()*360},80%,70%)`}); }
+for(let i=0;i<150;i++){ confetti.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*4+1,dx:(Math.random()-0.5)*0.5,dy:Math.random()*1+0.5,color:['gold','#ffd700','#fff5cc','#ffecd1','#ffe7a0'][Math.floor(Math.random()*5)]});*innerWidth,y:Math.random()*innerHeight,r:Math.random()*6+2,dx:(Math.random()-0.5)*1,dy:Math.random()*2+1,color:`gold`}); }
 function animate(){ ctx.clearRect(0,0,innerWidth,innerHeight); confetti.forEach(c=>{ c.x+=c.dx; c.y+=c.dy; if(c.y>innerHeight){ c.y=-10; c.x=Math.random()*innerWidth; } ctx.beginPath(); ctx.arc(c.x,c.y,c.r,0,Math.PI*2); ctx.fillStyle=c.color; ctx.fill(); }); requestAnimationFrame(animate); }
 animate();
 </script>

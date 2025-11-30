@@ -1,5 +1,4 @@
 
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -85,19 +84,48 @@
         margin-top: 40px;
     }
 
+    /* Calendar-style year boxes */
     .year-box {
-        padding: 25px;
         background: white;
-        font-size: 22px;
-        border-radius: 14px;
+        border-radius: 12px;
         border: 2px solid #ddd;
         cursor: pointer;
         transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .year-box:hover {
-        background: #ececec;
         transform: scale(1.05);
+        background: #fef9f0;
+    }
+
+    /* Calendar header (small top strip) */
+    .year-box .calendar-header {
+        width: 100%;
+        background: #f5d76e; /* light gold strip */
+        color: black;
+        text-align: center;
+        font-weight: bold;
+        padding: 5px 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* Calendar body (year number) */
+    .year-box .calendar-year {
+        font-size: 22px;
+        font-weight: bold;
+        color: #333;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Three sections (music / album / letters) */
@@ -179,23 +207,75 @@
     <h1>Select a Year</h1>
 
     <div class="year-grid">
-        <div class="year-box" onclick="showPage('page3')">2025</div>
-        <div class="year-box" onclick="showPage('page3')">2026</div>
-        <div class="year-box" onclick="showPage('page3')">2027</div>
-        <div class="year-box" onclick="showPage('page3')">2028</div>
-        <div class="year-box" onclick="showPage('page3')">2029</div>
-        <div class="year-box" onclick="showPage('page3')">2030</div>
-        <div class="year-box" onclick="showPage('page3')">2031</div>
-        <div class="year-box" onclick="showPage('page3')">2032</div>
-        <div class="year-box" onclick="showPage('page3')">2033</div>
-        <div class="year-box" onclick="showPage('page3')">2034</div>
-        <div class="year-box" onclick="showPage('page3')">2035</div>
-        <div class="year-box" onclick="showPage('page3')">2036</div>
-        <div class="year-box" onclick="showPage('page3')">2037</div>
-        <div class="year-box" onclick="showPage('page3')">2038</div>
-        <div class="year-box" onclick="showPage('page3')">2039</div>
-        <div class="year-box" onclick="showPage('page3')">2040</div> 
-        <div class="year-box" onclick="showPage('page3')">more...</div>
+        <!-- Calendar-style year boxes -->
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2025</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2026</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2027</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2028</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2029</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2030</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2031</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2032</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2033</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2034</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2035</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2036</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2037</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2038</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2039</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2040</div>
+        </div>
+        <div class="year-box" onclick="showPage('page3')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">more...</div>
+        </div>
     </div>
 </div>
 

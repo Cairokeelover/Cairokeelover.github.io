@@ -6,20 +6,6 @@
 <title>Birthday Journey</title>
 
 <style>
-
-    #page1 {
-        display: none;
-        text-align: center;
-        padding: 40px;
-        animation: fadeIn 0.7s ease;
-        background-image: url('12607d54-b629-4571-8240-a9ed1fec1b74.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-blend-mode: lighten;
-        background-color: rgba(255, 215, 0, 0.05); /* subtle gold tint */
-    }
-
     body {
         margin: 0;
         padding: 0;

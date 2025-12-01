@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -182,10 +183,11 @@
 
 <body>
 
+
 <!-- CONFETTI -->
 <div class="confetti-bg" id="confetti"></div>
 
-<!-- ========== LOGIN PAGE ========== -->
+<!-- LOGIN PAGE -->
 <div id="loginPage" class="active">
     <div class="login-box">
         <h2>🔒 Enter Password</h2>
@@ -194,6 +196,7 @@
         <p id="errorMsg" class="error">Incorrect password.</p>
     </div>
 </div>
+
 
 <!-- GOLD CONFETTI BACKGROUND -->
 <div class="confetti-bg" id="confetti"></div>

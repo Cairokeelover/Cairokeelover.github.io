@@ -1,6 +1,8 @@
 
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Journey</title>
@@ -10,7 +12,7 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        background: #ffffff; /* white */
+        background: #ffffff;
         transition: 0.4s;
     }
 
@@ -84,7 +86,6 @@
         margin-top: 40px;
     }
 
-    /* Calendar-style year boxes */
     .year-box {
         background: white;
         border-radius: 12px;
@@ -93,7 +94,6 @@
         transition: 0.3s;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         align-items: center;
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -104,10 +104,9 @@
         background: #fef9f0;
     }
 
-    /* Calendar header (small top strip) */
-    .year-box .calendar-header {
+    .calendar-header {
         width: 100%;
-        background: #f5d76e; /* light gold strip */
+        background: #f5d76e;
         color: black;
         text-align: center;
         font-weight: bold;
@@ -117,8 +116,7 @@
         margin-bottom: 8px;
     }
 
-    /* Calendar body (year number) */
-    .year-box .calendar-year {
+    .calendar-year {
         font-size: 22px;
         font-weight: bold;
         color: #333;
@@ -128,7 +126,7 @@
         justify-content: center;
     }
 
-    /* Three sections (music / album / letters) */
+    /* Three section boxes */
     .section-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -151,7 +149,7 @@
         transform: scale(1.05);
     }
 
-    /* CONFETTI BACKGROUND */
+    /* GOLD CONFETTI */
     .confetti-bg {
         position: fixed;
         top: 0;
@@ -178,15 +176,35 @@
         0% { transform: translateY(-50px) rotate(0deg); }
         100% { transform: translateY(110vh) rotate(360deg); }
     }
+
+    /* GOLD DOODLE BACKGROUND ON PAGE 1 */
+    .birthday-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://i.imgur.com/ZPL5t4D.png');
+        background-size: 380px;
+        background-repeat: repeat;
+        background-position: center;
+        opacity: 0.18;
+        z-index: -2;
+        pointer-events: none;
+    }
 </style>
+
 </head>
 
 <body>
 
-<!-- GOLD CONFETTI BACKGROUND -->
+<!-- GOLD DOODLE BACKGROUND (PAGE 1 ONLY) -->
+<div id="birthday-bg" class="birthday-bg"></div>
+
+<!-- GOLD CONFETTI -->
 <div class="confetti-bg" id="confetti"></div>
 
-<!-- PAGE 1 — FIRST INTERFACE -->
+<!-- PAGE 1 -->
 <div id="page1" class="page active">
     <h1>🎉 Happy Birthday Jojo 🎉</h1>
     <h2>03 / 03 / 2008</h2>
@@ -200,87 +218,35 @@
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
-<!-- PAGE 2 — YEARS -->
+<!-- PAGE 2 -->
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
 
     <h1>Select a Year</h1>
 
     <div class="year-grid">
-        <!-- Calendar-style year boxes -->
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2025</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2026</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2027</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2028</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2029</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2030</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2031</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2032</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2033</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2034</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2035</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2036</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2037</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2038</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2039</div>
-        </div>
-        <div class="year-box" onclick="showPage('page3')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">2040</div>
-        </div>
-        <!-- "More..." box -->
-        <div class="year-box" onclick="showPage('pageMore')">
-            <div class="calendar-header">Year</div>
-            <div class="calendar-year">more...</div>
-        </div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2025</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2026</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2027</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2028</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2029</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2030</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2031</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2032</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2033</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2034</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2035</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2036</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2037</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2038</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2039</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2040</div></div>
+
+        <div class="year-box" onclick="showPage('pageMore')"><div class="calendar-header">Year</div><div class="calendar-year">more...</div></div>
     </div>
 </div>
 
-<!-- PAGE 3 — THREE BOXES -->
+<!-- PAGE 3 -->
 <div id="page3" class="page">
     <button class="back" onclick="showPage('page2')">← Back</button>
 
@@ -293,28 +259,25 @@
     </div>
 </div>
 
-<!-- PAGE — MUSIC -->
+<!-- PAGES -->
 <div id="pageMusic" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Music of the Year</h1>
     <p>(Place your songs here later)</p>
 </div>
 
-<!-- PAGE — ALBUM -->
 <div id="pageAlbum" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Album 2025</h1>
     <p>(Photos will go here)</p>
 </div>
 
-<!-- PAGE — LETTERS -->
 <div id="pageLetters" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Birthday Letters</h1>
     <p>(Letters + names go here)</p>
 </div>
 
-<!-- PAGE — MORE YEARS MESSAGE -->
 <div id="pageMore" class="page">
     <button class="back" onclick="showPage('page2')">← Back</button>
     <h1>🎉 More Years Ahead 🎉</h1>
@@ -328,12 +291,16 @@
 function showPage(id) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
+
+    // ONLY show gold doodle background on Page 1
+    document.getElementById("birthday-bg").style.display =
+        id === "page1" ? "block" : "none";
 }
 
-// Generate gold confetti pieces
+// Confetti generator
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
-    const colors = ["gold", "#f5d76e", "#e6c24c", "#ffeb99"]; 
+    const colors = ["gold", "#f5d76e", "#e6c24c", "#ffeb99"];
 
     for (let i = 0; i < 60; i++) {
         let piece = document.createElement("div");

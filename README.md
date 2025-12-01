@@ -4,32 +4,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Journey</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
     body {
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #fff6da, #ffe8b5);
-        overflow-x: hidden;
-        transition: background 0.4s;
+        background: #ffffff;
+        transition: 0.4s;
     }
 
-    /* Fade transition for pages */
     .page {
         display: none;
         text-align: center;
         padding: 40px;
-        animation: fadeSlide 0.7s ease;
+        animation: fadeIn 0.7s ease;
     }
 
     .active {
         display: block;
     }
 
-    @keyframes fadeSlide {
-        from { opacity: 0; transform: translateY(25px); }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
@@ -37,7 +33,6 @@
         font-size: 48px;
         margin-bottom: 10px;
         color: #333;
-        font-weight: 700;
     }
 
     h2 {
@@ -47,11 +42,10 @@
     }
 
     p {
-        max-width: 550px;
+        max-width: 500px;
         margin: 0 auto;
         font-size: 18px;
         color: #444;
-        line-height: 1.6;
     }
 
     button {
@@ -63,101 +57,94 @@
         font-size: 17px;
         border-radius: 12px;
         cursor: pointer;
-        transition: 0.25s;
-        position: relative;
-        overflow: hidden;
+        transition: 0.3s;
     }
 
     button:hover {
-        transform: scale(1.08);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        transform: scale(1.07);
     }
 
-    /* Back button */
     .back {
         position: absolute;
         top: 20px;
         left: 20px;
-        background: #fff;
+        background: white;
         color: black;
         border: 2px solid black;
         font-weight: bold;
     }
 
-    /* Grid for years */
     .year-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
         margin-top: 40px;
-        padding: 20px;
     }
 
-    /* Modern glass year card */
     .year-box {
-        background: rgba(255, 255, 255, 0.65);
-        backdrop-filter: blur(10px);
-        border-radius: 18px;
-        padding: 18px;
+        background: white;
+        border-radius: 12px;
+        border: 2px solid #ddd;
         cursor: pointer;
-        transition: 0.25s;
-        border: 2px solid rgba(255, 199, 64, 0.55);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-        animation: popIn 0.6s ease;
-    }
-
-    @keyframes popIn {
-        from { opacity: 0; transform: scale(0.85); }
-        to { opacity: 1; transform: scale(1); }
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .year-box:hover {
-        transform: translateY(-5px) scale(1.05);
-        background: rgba(255, 251, 232, 0.85);
-        box-shadow: 0 8px 20px rgba(255, 180, 0, 0.35);
+        transform: scale(1.05);
+        background: #fef9f0;
     }
 
     .calendar-header {
-        background: gold;
+        width: 100%;
+        background: #f5d76e;
         color: black;
+        text-align: center;
         font-weight: bold;
-        padding: 5px;
-        border-radius: 12px;
-        margin-bottom: 10px;
+        padding: 5px 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        margin-bottom: 8px;
     }
 
     .calendar-year {
         font-size: 22px;
-        font-weight: 700;
+        font-weight: bold;
         color: #333;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* Three main sections */
     .section-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
         margin-top: 40px;
     }
 
     .section-box {
         background: white;
-        padding: 40px;
-        border-radius: 20px;
+        padding: 35px;
+        border-radius: 16px;
+        border: 2px solid #ddd;
         font-size: 20px;
-        border: 2px solid #eee;
         cursor: pointer;
         transition: 0.3s;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .section-box:hover {
+        background: #f2f2f2;
         transform: scale(1.05);
-        background: #fff5d4;
-        box-shadow: 0 8px 20px rgba(255,200,0,0.4);
     }
 
-    /* Confetti improved */
+    /* CONFETTI */
     .confetti-bg {
         position: fixed;
         top: 0;
@@ -166,21 +153,46 @@
         height: 100%;
         pointer-events: none;
         z-index: -1;
+        overflow: hidden;
     }
 
     .confetti-piece {
         position: absolute;
-        width: 10px;
-        height: 16px;
+        width: 8px;
+        height: 14px;
         background: gold;
-        border-radius: 3px;
         opacity: 0.7;
+        transform: rotate(15deg);
+        border-radius: 2px;
         animation: fall linear infinite;
     }
 
     @keyframes fall {
-        0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.9; }
-        100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+        0% { transform: translateY(-50px) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* --- GOLD DOODLES ON FIRST PAGE --- */
+    #page1 {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .doodle {
+        position: absolute;
+        font-size: 32px;
+        color: gold;
+        opacity: 0.25;
+        pointer-events: none;
+        user-select: none;
+        font-weight: bold;
+        animation: floatDoodle 6s ease-in-out infinite;
+    }
+
+    @keyframes floatDoodle {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
     }
 </style>
 </head>
@@ -193,28 +205,56 @@
 <div id="page1" class="page active">
     <h1>🎉 Happy Birthday Jojo 🎉</h1>
     <h2>03 / 03 / 2008</h2>
+
     <p>
-        Happy birthday Jihan, with all love.  
-        May every year bring you joy, success, and beautiful memories.
+        Happy birthday Jihan, with all love.<br>
+        I wish for you the best in this year and all the years coming.<br>
+        May your journey be full of happiness, success, and beautiful memories.
     </p>
+
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
-<!-- PAGE 2 (Dynamic Years) -->
+<!-- PAGE 2 -->
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
+
     <h1>Select a Year</h1>
-    <div class="year-grid" id="yearGrid"></div>
+
+    <div class="year-grid">
+        <!-- DEFAULT YEARS (unchanged) -->
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2025</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2026</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2027</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2028</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2029</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2030</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2031</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2032</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2033</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2034</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2035</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2036</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2037</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2038</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2039</div></div>
+        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2040</div></div>
+
+        <div class="year-box" onclick="showPage('pageMore')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">more...</div>
+        </div>
+    </div>
 </div>
 
-<!-- PAGE 3 (Sections) -->
+<!-- PAGE 3 -->
 <div id="page3" class="page">
     <button class="back" onclick="showPage('page2')">← Back</button>
-    <h1 id="selectedYearTitle">Year Memories</h1>
+    <h1>2025 Memories</h1>
 
     <div class="section-grid">
         <div class="section-box" onclick="showPage('pageMusic')">🎵 Music of the Year</div>
-        <div class="section-box" onclick="showPage('pageAlbum')">📸 Album</div>
+        <div class="section-box" onclick="showPage('pageAlbum')">📸 Album 2025</div>
         <div class="section-box" onclick="showPage('pageLetters')">💌 Birthday Letters</div>
     </div>
 </div>
@@ -223,65 +263,86 @@
 <div id="pageMusic" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Music of the Year</h1>
+    <p>(Place your songs here later)</p>
 </div>
 
 <!-- ALBUM -->
 <div id="pageAlbum" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
-    <h1>Album</h1>
+    <h1>Album 2025</h1>
+    <p>(Photos will go here)</p>
 </div>
 
 <!-- LETTERS -->
 <div id="pageLetters" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Birthday Letters</h1>
+    <p>(Letters + names go here)</p>
+</div>
+
+<!-- MORE -->
+<div id="pageMore" class="page">
+    <button class="back" onclick="showPage('page2')">← Back</button>
+    <h1>🎉 More Years Ahead 🎉</h1>
+    <p>More wonderful years are waiting for you!</p>
 </div>
 
 <script>
-/* PAGE SWITCH */
 function showPage(id) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-/* ---------- DYNAMIC YEARS ---------- */
-const startYear = 2025;
-const endYear = 2040;
-const yearGrid = document.getElementById("yearGrid");
-
-for (let y = startYear; y <= endYear; y++) {
-    let box = document.createElement("div");
-    box.className = "year-box";
-    box.innerHTML = `
-        <div class="calendar-header">Year</div>
-        <div class="calendar-year">${y}</div>
-    `;
-
-    box.onclick = function () {
-        document.getElementById("selectedYearTitle").innerText = y + " Memories";
-        showPage("page3");
-    };
-
-    yearGrid.appendChild(box);
-}
-
-/* ---------- CONFETTI ---------- */
+// CONFETTI
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
-    const colors = ["gold", "#ffde73", "#ffe9ac", "#fff3d1"];
+    const colors = ["gold", "#f5d76e", "#e6c24c", "#ffeb99"]; 
 
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 60; i++) {
         let piece = document.createElement("div");
         piece.classList.add("confetti-piece");
 
         piece.style.left = Math.random() * 100 + "vw";
-        piece.style.animationDuration = 4 + Math.random() * 3 + "s";
+        piece.style.animationDuration = 3 + Math.random() * 4 + "s";
         piece.style.background = colors[Math.floor(Math.random() * colors.length)];
 
         confettiContainer.appendChild(piece);
     }
 }
+
 createConfetti();
+
+/* ------------------ GOLD DOODLES ------------------ */
+function addDoodles() {
+    const doodles = ["⭐", "✨", "🎈", "🎉", "💛", "✦", "𖤐", "JIHAN"];
+    const page = document.getElementById("page1");
+
+    for (let i = 0; i < 25; i++) {
+        let d = document.createElement("div");
+        d.classList.add("doodle");
+
+        d.innerText = doodles[Math.floor(Math.random() * doodles.length)];
+
+        // Random positions BUT avoid center text area
+        let topPos = Math.random() * 100;
+        let leftPos = Math.random() * 100;
+
+        // Avoid middle area
+        if (topPos > 25 && topPos < 75 && leftPos > 20 && leftPos < 80) {
+            i--;
+            continue;
+        }
+
+        d.style.top = topPos + "vh";
+        d.style.left = leftPos + "vw";
+
+        d.style.animationDelay = (Math.random() * 4) + "s";
+
+        page.appendChild(d);
+    }
+}
+
+addDoodles();
 </script>
 
 </body>

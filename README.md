@@ -66,7 +66,6 @@
         transform: scale(1.07);
     }
 
-    /* Back button */
     .back {
         position: absolute;
         top: 20px;
@@ -77,7 +76,6 @@
         font-weight: bold;
     }
 
-    /* Years grid */
     .year-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -125,7 +123,6 @@
         justify-content: center;
     }
 
-    /* Three section boxes */
     .section-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -148,7 +145,7 @@
         transform: scale(1.05);
     }
 
-    /* GOLD CONFETTI */
+    /* CONFETTI */
     .confetti-bg {
         position: fixed;
         top: 0;
@@ -183,13 +180,26 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('https://i.imgur.com/ZPL5t4D.png');
-        background-size: 380px;
+        background-image:
+            url("data:image/svg+xml;utf8,
+            <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+                <style>.d{stroke:%23d4af37;stroke-width:4;fill:none;}</style>
+                <circle cx='50' cy='50' r='20' class='d'/>
+                <circle cx='250' cy='80' r='18' class='d'/>
+                <path d='M150 30 l20 40 l-40 0 z' class='d'/>
+                <path d='M80 200 q30 -40 60 0 q-30 40 -60 0' class='d'/>
+                <path d='M200 220 l30 30 l-30 30' class='d'/>
+                <path d='M30 150 l40 -20 l0 40 z' class='d'/>
+                <circle cx='180' cy='150' r='12' class='d'/>
+                <circle cx='120' cy='260' r='15' class='d'/>
+            </svg>");
+        background-size: 330px;
         background-repeat: repeat;
         background-position: center;
-        opacity: 0.18;
+        opacity: 0.22;
         z-index: -2;
         pointer-events: none;
+        display: block;
     }
 </style>
 
@@ -197,10 +207,10 @@
 
 <body>
 
-<!-- GOLD DOODLE BACKGROUND (PAGE 1 ONLY) -->
+<!-- GOLD DOODLE BACKGROUND -->
 <div id="birthday-bg" class="birthday-bg"></div>
 
-<!-- GOLD CONFETTI -->
+<!-- CONFETTI -->
 <div class="confetti-bg" id="confetti"></div>
 
 <!-- PAGE 1 -->
@@ -224,24 +234,15 @@
     <h1>Select a Year</h1>
 
     <div class="year-grid">
+
         <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2025</div></div>
         <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2026</div></div>
         <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2027</div></div>
         <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2028</div></div>
         <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2029</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2030</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2031</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2032</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2033</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2034</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2035</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2036</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2037</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2038</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2039</div></div>
-        <div class="year-box" onclick="showPage('page3')"><div class="calendar-header">Year</div><div class="calendar-year">2040</div></div>
 
         <div class="year-box" onclick="showPage('pageMore')"><div class="calendar-header">Year</div><div class="calendar-year">more...</div></div>
+
     </div>
 </div>
 
@@ -258,7 +259,7 @@
     </div>
 </div>
 
-<!-- PAGES -->
+<!-- SUBPAGES -->
 <div id="pageMusic" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Music of the Year</h1>
@@ -291,12 +292,11 @@ function showPage(id) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 
-    // ONLY show gold doodle background on Page 1
+    // Show gold doodles ONLY on Page 1
     document.getElementById("birthday-bg").style.display =
         id === "page1" ? "block" : "none";
 }
 
-// Confetti generator
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
     const colors = ["gold", "#f5d76e", "#e6c24c", "#ffeb99"];
@@ -304,11 +304,9 @@ function createConfetti() {
     for (let i = 0; i < 60; i++) {
         let piece = document.createElement("div");
         piece.classList.add("confetti-piece");
-
         piece.style.left = Math.random() * 100 + "vw";
         piece.style.animationDuration = 3 + Math.random() * 4 + "s";
         piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-
         confettiContainer.appendChild(piece);
     }
 }

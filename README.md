@@ -322,4 +322,52 @@ function createConfetti() {
 
         piece.style.left = Math.random() * 100 + "vw";
         piece.style.animationDuration = 3 + Math.random() * 4 + "s";
-        piece.style.background = colors[Math.floor(Math.random() * colors*]()
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        confettiContainer.appendChild(piece);
+    }
+}
+createConfetti();
+
+/* GOLD GLOW DOODLES */
+function addGlowDoodles() {
+    const icons = [
+        "doodle-balloon",
+        "doodle-swirl",
+        "doodle-star",
+        "doodle-hat",
+        "doodle-cake"
+    ];
+
+    const page = document.getElementById("page1");
+
+    for (let i = 0; i < 18; i++) {
+        let svg = document.createElement("svg");
+        svg.classList.add("doodle");
+
+        let use = document.createElement("use");
+        use.setAttribute("href", "#" + icons[Math.floor(Math.random() * icons.length)]);
+        svg.appendChild(use);
+
+        let topPos = Math.random() * 100;
+        let leftPos = Math.random() * 100;
+
+        if (topPos > 25 && topPos < 75 && leftPos > 20 && leftPos < 80) {
+            i--;
+            continue;
+        }
+
+        svg.style.top = topPos + "vh";
+        svg.style.left = leftPos + "vw";
+        svg.style.animationDelay = (Math.random() * 5) + "s";
+
+        page.appendChild(svg);
+    }
+}
+
+addGlowDoodles();
+</script>
+
+</body>
+</html>
+****

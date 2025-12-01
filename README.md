@@ -175,12 +175,38 @@ input {
             <div class="calendar-header">Year</div>
             <div class="calendar-year">2025</div>
         </div>
-
         <div class="year-box" onclick="alert('2026 page coming soon!')">
             <div class="calendar-header">Year</div>
             <div class="calendar-year">2026</div>
         </div>
-
+        <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2027</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2028</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2029</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2030</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2031</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">20232</div>
+        </div>
+          <div class="year-box" onclick="alert('2026 page coming soon!')">
+            <div class="calendar-header">Year</div>
+            <div class="calendar-year">2033</div>
+        </div>
         <div class="year-box" onclick="showPage('pageMore')">
             <div class="calendar-header">Year</div>
             <div class="calendar-year">more...</div>

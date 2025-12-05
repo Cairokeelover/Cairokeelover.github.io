@@ -103,6 +103,7 @@
 </div>
 
 <script>
+/* ===== PASSWORD SYSTEM ===== */
 function checkPassword() {
     const input = document.getElementById("passwordInput").value;
     const errorMsg = document.getElementById("errorMsg");
@@ -112,20 +113,22 @@ function checkPassword() {
         document.getElementById("page1").classList.add("active");
     } else { errorMsg.style.display="block"; }
 }
-
 window.onload = () => {
     if(localStorage.getItem("birthday_access")==="ok") {
         document.getElementById("loginPage").style.display="none";
         document.getElementById("page1").classList.add("active");
     }
     generateYears();
+    createConfetti();
 };
 
+/* ===== PAGE NAVIGATION ===== */
 function showPage(id) {
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
+/* ===== CONFETTI ===== */
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
     const colors = ["gold","#f5d76e","#e6c24c","#ffeb99"];
@@ -138,8 +141,8 @@ function createConfetti() {
         confettiContainer.appendChild(piece);
     }
 }
-createConfetti();
 
+/* ===== YEARS DYNAMIC ===== */
 function generateYears() {
     const grid = document.querySelector(".year-grid");
     for(let year=2025; year<=2040; year++){
@@ -162,53 +165,55 @@ function generateYears() {
 
 let currentYear = 2025;
 
-/* === PHOTO ALBUM === */
+/* ===== PHOTO ALBUM ===== */
 const albumPhotos = {
     "2025": [
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Screenshot%202025-09-04%20135123.png",
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Screenshot%202025-09-06%20171636.png",
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Screenshot%202025-10-22%20221310.png"
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-04%20135123.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-06%20171636.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-10-22%20221310.png"
     ]
 };
 
 function loadGithubPhotos() {
+    const yearText = currentYear.toString();
     const container = document.getElementById("photoAlbumContainer");
     container.innerHTML = "";
-    const photos = albumPhotos[currentYear];
-    if (!photos || photos.length === 0) {
+    const photos = albumPhotos[yearText];
+    if(!photos || photos.length === 0) {
         container.innerHTML = "<p>No photos for this year yet.</p>";
         return;
     }
-    photos.forEach((url, index) => {
+    photos.forEach((url,index)=>{
         const card = document.createElement("div");
         card.className = "photo-card";
-        card.innerHTML = `<img src="${url}" alt="Photo ${index}"><p class="caption">Memory ${index + 1} - ${currentYear}</p>`;
+        card.innerHTML = `<img src="${url}" alt="Photo ${index}"><p class="caption">Memory ${index+1} - ${yearText}</p>`;
         container.appendChild(card);
     });
 }
 
-/* === MUSIC === */
+/* ===== MUSIC SYSTEM ===== */
 const songs = [
-  "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
+    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
 ];
 
 let musicIndex = 0;
 let musicPlayer = document.getElementById("birthdayMusic");
+let isInitialized = false;
 
 function toggleMusic() {
-    if (!musicPlayer.src) {
-        // First click: set source and play
+    if(!isInitialized) {
+        // First click: initialize audio and play
         musicPlayer.src = songs[musicIndex];
-        musicPlayer.play();
+        musicPlayer.play().catch(err => console.log("Play prevented:", err));
         musicPlayer.onended = () => {
             musicIndex = (musicIndex + 1) % songs.length;
             musicPlayer.src = songs[musicIndex];
-            musicPlayer.play();
+            musicPlayer.play().catch(err => console.log("Play prevented:", err));
         };
-    } else if (musicPlayer.paused) {
-        musicPlayer.play();
+        isInitialized = true;
     } else {
-        musicPlayer.pause();
+        if(musicPlayer.paused) musicPlayer.play();
+        else musicPlayer.pause();
     }
 }
 </script>

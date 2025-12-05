@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -88,6 +88,11 @@
         I wish for you all the best in this year and all the years coming.<br>
         May your journey be full of happiness, success, and beautiful memories.
     </p>
+
+    <!-- Music player with multiple songs -->
+    <audio id="birthdayMusic" autoplay></audio>
+    <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
+
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
@@ -196,6 +201,16 @@ const albumPhotos = {
     ]
 };
 
+/* ====== MULTIPLE SONGS AND PLAY/PAUSE ====== */
+const songs = [
+    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3",
+    "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/David%20Guetta%20Feat.%20Kid%20Cudi%20-%20Memories%20(Official%20Video).mp3",
+    "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
+    "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Katy%20Perry%20-%20Hot%20N%20Cold%20(Lyrics).mp3"
+    "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Rihanna%20-%20Dont%20Stop%20The%20Music%20(Lyrics).mp3"
+];
+
+
 function loadGithubPhotos() {
     const yearText = currentYear.toString();
     const container = document.getElementById("photoAlbumContainer");
@@ -225,4 +240,3 @@ function loadGithubPhotos() {
 
 </body>
 </html>
-

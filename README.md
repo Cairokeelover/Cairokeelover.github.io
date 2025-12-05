@@ -88,36 +88,8 @@
         I wish for you all the best in this year and all the years coming.<br>
         May your journey be full of happiness, success, and beautiful memories.
     </p>
-
-    <!-- Music Player -->
-    <audio id="birthdayMusic" autoplay></audio>
+    <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
-
-<script>
-const music = document.getElementById("birthdayMusic");
-
-// Playlist of multiple songs
-const playlist = [
-    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3",
-    "https://example.com/song2.mp3",
-    "https://example.com/song3.mp3"
-];
-
-let currentTrack = 0;
-
-// Start playing the first song
-music.src = playlist[currentTrack];
-music.play();
-
-// Automatically play next song when one ends
-music.addEventListener('ended', () => {
-    currentTrack++;
-    if(currentTrack >= playlist.length) currentTrack = 0;
-    music.src = playlist[currentTrack];
-    music.play();
-});
-</script>
-
 
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
@@ -253,3 +225,4 @@ function loadGithubPhotos() {
 
 </body>
 </html>
+

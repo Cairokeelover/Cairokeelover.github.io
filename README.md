@@ -26,24 +26,20 @@
     .confetti-bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
     .confetti-piece { position:absolute; width:8px; height:14px; background:gold; opacity:0.7; transform:rotate(15deg); border-radius:2px; animation:fall linear infinite; }
     @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+    /* LOGIN PAGE */
     #loginPage { display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column; }
     .login-box { text-align:center; }
     input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; }
     .error { color:red; display:none; margin-top:10px; }
     img { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); object-fit:cover; }
-
-    /* === PHOTO ALBUM LAYOUT === */
-    .photo-album { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 25px; }
-    .photo-card { background: white; width: 260px; border-radius: 15px; padding: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.2s ease; }
-    .photo-card:hover { transform: scale(1.03); }
-    .photo-card img { width: 100%; border-radius: 12px; }
-    .caption { text-align: center; margin-top: 8px; font-size: 15px; color: #666; }
 </style>
 </head>
 <body>
 
+<!-- CONFETTI -->
 <div class="confetti-bg" id="confetti"></div>
 
+<!-- LOGIN PAGE -->
 <div id="loginPage">
     <div class="login-box">
         <h2>🔒 Enter Password</h2>
@@ -53,6 +49,7 @@
     </div>
 </div>
 
+<!-- PAGE 1 — FIRST INTERFACE -->
 <div id="page1" class="page">
     <h1>🎉 Happy Birthday Jojo 🎉</h1>
     <h2>03 / 03 / 2008</h2>
@@ -61,33 +58,16 @@
         I wish for you all the best in this year and all the years coming.<br>
         May your journey be full of happiness, success, and beautiful memories.
     </p>
-
-    <!-- Music player -->
-    <audio id="birthdayMusic" 
-           src="https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3" 
-           autoplay 
-           loop>
-    </audio>
-    <!-- Optional play/pause button -->
-    <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
-
-    <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
-<script>
-function toggleMusic() {
-    const music = document.getElementById("birthdayMusic");
-    if (music.paused) music.play();
-    else music.pause();
-}
-</script>
-
+<!-- PAGE 2 — YEARS -->
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
     <h1>Select a Year</h1>
     <div class="year-grid"></div>
 </div>
 
+<!-- PAGE 3 — THREE BOXES -->
 <div id="page3" class="page">
     <button class="back" onclick="showPage('page2')">← Back</button>
     <h1 id="yearTitle">Year Memories</h1>
@@ -98,18 +78,23 @@ function toggleMusic() {
     </div>
 </div>
 
+<!-- PAGE — MUSIC -->
 <div id="pageMusic" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Music of the Year</h1>
     <p>(Place your songs here later)</p>
 </div>
 
+<!-- PAGE — ALBUM -->
 <div id="pageAlbum" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Album of the Year</h1>
-    <div id="photoAlbumContainer" class="photo-album"></div>
+    <input type="file" id="photoInput" accept="image/*" multiple>
+    <button onclick="uploadPhotos()">Add Photos</button>
+    <div id="photoGallery" style="margin-top:30px; display:flex; flex-wrap:wrap; gap:15px; justify-content:center;"></div>
 </div>
 
+<!-- PAGE — LETTERS -->
 <div id="pageLetters" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Birthday Letters</h1>
@@ -117,6 +102,7 @@ function toggleMusic() {
 </div>
 
 <script>
+/* ====== PASSWORD LOGIN ====== */
 function checkPassword() {
     const input = document.getElementById("passwordInput").value;
     const errorMsg = document.getElementById("errorMsg");
@@ -132,16 +118,15 @@ window.onload = () => {
         document.getElementById("page1").classList.add("active");
     }
     generateYears();
-    initMusic();
 };
 
+/* ====== PAGE NAVIGATION ====== */
 function showPage(id) {
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
-
-    if(id === "pageAlbum") loadGithubPhotos();
 }
 
+/* ====== CONFETTI ====== */
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
     const colors = ["gold","#f5d76e","#e6c24c","#ffeb99"];
@@ -156,6 +141,7 @@ function createConfetti() {
 }
 createConfetti();
 
+/* ====== YEARS DYNAMIC ====== */
 function generateYears() {
     const grid = document.querySelector(".year-grid");
     for(let year=2025; year<=2040; year++){
@@ -165,6 +151,7 @@ function generateYears() {
         div.onclick = () => {
             document.getElementById("yearTitle").innerText=year+" Memories";
             currentYear = year;
+            displayPhotos();
             showPage('page3');
         };
         grid.appendChild(div);
@@ -176,62 +163,40 @@ function generateYears() {
     grid.appendChild(more);
 }
 
+/* ====== ALBUM PHOTO LOGIC ====== */
 let currentYear = 2025;
+function uploadPhotos() {
+    const input = document.getElementById("photoInput");
+    const files = input.files;
+    if(!files.length) return;
 
-/* === PHOTO ALBUM SYSTEM === */
-const albumPhotos = {
-    "2025": [
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-04%20135123.png",
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-06%20171636.png",
-        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-10-22%20221310.png"
-    ]
-};
+    let storedPhotos = JSON.parse(localStorage.getItem("album"+currentYear) || "[]");
 
-function loadGithubPhotos() {
-    const yearText = currentYear.toString();
-    const container = document.getElementById("photoAlbumContainer");
-
-    container.innerHTML = "";
-
-    const photos = albumPhotos[yearText];
-    if (!photos || photos.length === 0) {
-        container.innerHTML = "<p>No photos for this year yet.</p>";
-        return;
+    for(let file of files){
+        const reader = new FileReader();
+        reader.onload = () => {
+            storedPhotos.push(reader.result);
+            localStorage.setItem("album"+currentYear, JSON.stringify(storedPhotos));
+            displayPhotos();
+        };
+        reader.readAsDataURL(file);
     }
+}
 
-    photos.forEach((url, index) => {
-        const card = document.createElement("div");
-        card.className = "photo-card";
-        card.innerHTML = `<img src="${url}" alt="Photo ${index}"><p class="caption">Memory ${index + 1} - ${yearText}</p>`;
-        container.appendChild(card);
+function displayPhotos() {
+    const container = document.getElementById("photoGallery");
+    container.innerHTML="";
+    let storedPhotos = JSON.parse(localStorage.getItem("album"+currentYear) || "[]");
+    storedPhotos.forEach(imgData=>{
+        const img=document.createElement("img");
+        img.src=imgData;
+        img.style.width="150px";
+        img.style.height="150px";
+        container.appendChild(img);
     });
 }
 
-/* === MUSIC SYSTEM === */
-const songs = ["https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
- ];
 
-let musicIndex = 0;
-let musicPlayer;
-
-function initMusic() {
-    musicPlayer = document.getElementById("birthdayMusic");
-    playNextSong();
-    musicPlayer.addEventListener("ended", playNextSong);
-}
-
-function playNextSong() {
-    musicPlayer.src = songs[musicIndex];
-    musicPlayer.play();
-    musicIndex = (musicIndex + 1) % songs.length;
-}
-
-function toggleMusic() {
-    if(musicPlayer.paused) musicPlayer.play();
-    else musicPlayer.pause();
-}
-</script>
 
 </body>
 </html>
-

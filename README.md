@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +26,6 @@
     .confetti-bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
     .confetti-piece { position:absolute; width:8px; height:14px; background:gold; opacity:0.7; transform:rotate(15deg); border-radius:2px; animation:fall linear infinite; }
     @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
-    /* LOGIN PAGE */
     #loginPage { display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column; }
     .login-box { text-align:center; }
     input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; }
@@ -37,10 +35,8 @@
 </head>
 <body>
 
-<!-- CONFETTI -->
 <div class="confetti-bg" id="confetti"></div>
 
-<!-- LOGIN PAGE -->
 <div id="loginPage">
     <div class="login-box">
         <h2>🔒 Enter Password</h2>
@@ -50,7 +46,6 @@
     </div>
 </div>
 
-<!-- PAGE 1 — FIRST INTERFACE -->
 <div id="page1" class="page">
     <h1>🎉 Happy Birthday Jojo 🎉</h1>
     <h2>03 / 03 / 2008</h2>
@@ -62,16 +57,12 @@
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
-<!-- PAGE 2 — YEARS -->
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
     <h1>Select a Year</h1>
-    <div class="year-grid">
-        <!-- Generate years dynamically -->
-    </div>
+    <div class="year-grid"></div>
 </div>
 
-<!-- PAGE 3 — THREE BOXES -->
 <div id="page3" class="page">
     <button class="back" onclick="showPage('page2')">← Back</button>
     <h1 id="yearTitle">Year Memories</h1>
@@ -82,23 +73,18 @@
     </div>
 </div>
 
-<!-- PAGE — MUSIC -->
 <div id="pageMusic" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Music of the Year</h1>
     <p>(Place your songs here later)</p>
 </div>
 
-<!-- PAGE — ALBUM -->
 <div id="pageAlbum" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Album of the Year</h1>
-    <input type="file" id="photoInput" accept="image/*" multiple>
-    <button onclick="uploadPhotos()">Add Photos</button>
     <div id="photoGallery" style="margin-top:30px; display:flex; flex-wrap:wrap; gap:15px; justify-content:center;"></div>
 </div>
 
-<!-- PAGE — LETTERS -->
 <div id="pageLetters" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Birthday Letters</h1>
@@ -106,7 +92,6 @@
 </div>
 
 <script>
-/* ====== PASSWORD LOGIN ====== */
 function checkPassword() {
     const input = document.getElementById("passwordInput").value;
     const errorMsg = document.getElementById("errorMsg");
@@ -114,9 +99,7 @@ function checkPassword() {
         localStorage.setItem("birthday_access","ok");
         document.getElementById("loginPage").style.display="none";
         document.getElementById("page1").classList.add("active");
-    } else {
-        errorMsg.style.display="block";
-    }
+    } else { errorMsg.style.display="block"; }
 }
 window.onload = () => {
     if(localStorage.getItem("birthday_access")==="ok") {
@@ -126,13 +109,13 @@ window.onload = () => {
     generateYears();
 };
 
-/* ====== PAGE NAVIGATION ====== */
 function showPage(id) {
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
+
+    if(id === "pageAlbum") loadGithubPhotos();
 }
 
-/* ====== CONFETTI ====== */
 function createConfetti() {
     const confettiContainer = document.getElementById("confetti");
     const colors = ["gold","#f5d76e","#e6c24c","#ffeb99"];
@@ -147,7 +130,6 @@ function createConfetti() {
 }
 createConfetti();
 
-/* ====== YEARS DYNAMIC ====== */
 function generateYears() {
     const grid = document.querySelector(".year-grid");
     for(let year=2025; year<=2040; year++){
@@ -156,13 +138,11 @@ function generateYears() {
         div.innerHTML=`<div class="calendar-header">Year</div><div class="calendar-year">${year}</div>`;
         div.onclick = () => {
             document.getElementById("yearTitle").innerText=year+" Memories";
-            currentYear = year;
-            displayPhotos();
             showPage('page3');
         };
         grid.appendChild(div);
     }
-    // Add "more..."
+
     let more = document.createElement("div");
     more.className="year-box";
     more.innerHTML=`<div class="calendar-header">Year</div><div class="calendar-year">more...</div>`;
@@ -170,35 +150,21 @@ function generateYears() {
     grid.appendChild(more);
 }
 
-/* ====== ALBUM PHOTO LOGIC ====== */
-let currentYear = 2025;
-function uploadPhotos() {
-    const input = document.getElementById("photoInput");
-    const files = input.files;
-    if(!files.length) return;
+/* === LOAD GITHUB PHOTOS === */
+function loadGithubPhotos() {
+    const githubPhotos = [
+        "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Screenshot%202025-11-05%20014301.png?raw=true"
+    ];
 
-    let storedPhotos = JSON.parse(localStorage.getItem("album"+currentYear) || "[]");
-
-    for(let file of files){
-        const reader = new FileReader();
-        reader.onload = () => {
-            storedPhotos.push(reader.result);
-            localStorage.setItem("album"+currentYear, JSON.stringify(storedPhotos));
-            displayPhotos();
-        };
-        reader.readAsDataURL(file);
-    }
-}
-
-function displayPhotos() {
     const container = document.getElementById("photoGallery");
-    container.innerHTML="";
-    let storedPhotos = JSON.parse(localStorage.getItem("album"+currentYear) || "[]");
-    storedPhotos.forEach(imgData=>{
-        const img=document.createElement("img");
-        img.src=imgData;
-        img.style.width="150px";
-        img.style.height="150px";
+    container.innerHTML = "";
+
+    githubPhotos.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.style.width = "150px";
+        img.style.height = "150px";
+        img.style.borderRadius = "10px";
         container.appendChild(img);
     });
 }

@@ -62,12 +62,25 @@
         May your journey be full of happiness, success, and beautiful memories.
     </p>
 
-    <!-- Music Player -->
-    <audio id="birthdayMusic" autoplay></audio>
+    <!-- Music player -->
+    <audio id="birthdayMusic" 
+           src="https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3" 
+           autoplay 
+           loop>
+    </audio>
+    <!-- Optional play/pause button -->
     <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
 
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
+
+<script>
+function toggleMusic() {
+    const music = document.getElementById("birthdayMusic");
+    if (music.paused) music.play();
+    else music.pause();
+}
+</script>
 
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
@@ -221,3 +234,4 @@ function toggleMusic() {
 
 </body>
 </html>
+

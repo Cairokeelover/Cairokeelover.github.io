@@ -31,6 +31,40 @@
     input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; }
     .error { color:red; display:none; margin-top:10px; }
     img { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); object-fit:cover; }
+
+    /* === PHOTO ALBUM LAYOUT === */
+    .photo-album {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 25px;
+    }
+
+    .photo-card {
+        background: white;
+        width: 260px;
+        border-radius: 15px;
+        padding: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        transition: transform 0.2s ease;
+    }
+
+    .photo-card:hover {
+        transform: scale(1.03);
+    }
+
+    .photo-card img {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .caption {
+        text-align: center;
+        margin-top: 8px;
+        font-size: 15px;
+        color: #666;
+    }
 </style>
 </head>
 <body>
@@ -82,7 +116,7 @@
 <div id="pageAlbum" class="page">
     <button class="back" onclick="showPage('page3')">← Back</button>
     <h1>Album of the Year</h1>
-    <div id="photoGallery" style="margin-top:30px; display:flex; flex-wrap:wrap; gap:15px; justify-content:center;"></div>
+    <div id="photoAlbumContainer" class="photo-album"></div>
 </div>
 
 <div id="pageLetters" class="page">
@@ -138,6 +172,7 @@ function generateYears() {
         div.innerHTML=`<div class="calendar-header">Year</div><div class="calendar-year">${year}</div>`;
         div.onclick = () => {
             document.getElementById("yearTitle").innerText=year+" Memories";
+            currentYear = year;
             showPage('page3');
         };
         grid.appendChild(div);
@@ -150,22 +185,40 @@ function generateYears() {
     grid.appendChild(more);
 }
 
-/* === LOAD GITHUB PHOTOS === */
+let currentYear = 2025;
+
+/* === PHOTO ALBUM SYSTEM === */
+const albumPhotos = {
+    "2025": [
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-04%20135123.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-06%20171636.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-10-22%20221310.png"
+    ]
+};
+
 function loadGithubPhotos() {
-    const githubPhotos = [
-        "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Screenshot%202025-11-05%20014301.png?raw=true"
-    ];
+    const yearText = currentYear.toString();
+    const container = document.getElementById("photoAlbumContainer");
 
-    const container = document.getElementById("photoGallery");
-    container.innerHTML = "";
+    container.innerHTML = ""; // Clear old photos
 
-    githubPhotos.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.style.width = "150px";
-        img.style.height = "150px";
-        img.style.borderRadius = "10px";
-        container.appendChild(img);
+    const photos = albumPhotos[yearText];
+
+    if (!photos || photos.length === 0) {
+        container.innerHTML = "<p>No photos for this year yet.</p>";
+        return;
+    }
+
+    photos.forEach((url, index) => {
+        const card = document.createElement("div");
+        card.className = "photo-card";
+
+        card.innerHTML = `
+            <img src="${url}" alt="Photo ${index}">
+            <p class="caption">Memory ${index + 1} - ${yearText}</p>
+        `;
+
+        container.appendChild(card);
     });
 }
 </script>

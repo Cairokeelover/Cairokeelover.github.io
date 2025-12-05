@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,23 +90,51 @@
     </p>
 
     <!-- Music player -->
-    <audio id="birthdayMusic" 
-           src="https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3" 
-           autoplay 
-           loop>
+   <div id="musicPlayer">
+    <audio id="birthdayMusic" autoplay loop>
+        <!-- sources will be added dynamically by JS -->
     </audio>
-    <!-- Optional play/pause button -->
     <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
-
-    <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
 <script>
+// Playlist for the first page
+const playlist = [
+    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Tempo%20x%20El%20Alfa%20-%20Happy%20Birthday%20%5BOfficial%20Video%5D.mp3",
+    // Add more songs here as URLs
+    "https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/David%20Guetta%20Feat.%20Kid%20Cudi%20-%20Memories%20(Official%20Video).mp3"
+"https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/AnotherSong.mp3"
+"https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
+"https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Rihanna%20-%20Dont%20Stop%20The%20Music%20(Lyrics).mp3"
+"https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Katy%20Perry%20-%20Hot%20N%20Cold%20(Lyrics).mp3"
+
+];
+
+let currentSongIndex = 0;
+const music = document.getElementById("birthdayMusic");
+
+// Function to load and play current song
+function playCurrentSong() {
+    music.src = playlist[currentSongIndex];
+    music.play();
+}
+
+// When a song ends, automatically play next
+music.addEventListener("ended", () => {
+    currentSongIndex = (currentSongIndex + 1) % playlist.length;
+    playCurrentSong();
+});
+
+// Play/pause toggle
 function toggleMusic() {
-    const music = document.getElementById("birthdayMusic");
     if (music.paused) music.play();
     else music.pause();
 }
+
+// Start first song on page load
+window.addEventListener("load", () => {
+    playCurrentSong();
+});
 </script>
 <div id="page2" class="page">
     <button class="back" onclick="showPage('page1')">← Back</button>
@@ -243,4 +270,3 @@ function loadGithubPhotos() {
 
 </body>
 </html>
-

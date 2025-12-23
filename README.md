@@ -1,5 +1,4 @@
 
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,10 +65,6 @@
         May your journey be full of happiness, success, and beautiful memories.
     </p>
 
-    <!-- Music Player -->
-    <audio id="birthdayMusic" preload="auto" controls></audio>  <!-- Added 'controls' for debugging -->
-    <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
-
     <button onclick="showPage('page2')">Enter the Journey →</button>
 </div>
 
@@ -83,22 +78,8 @@
     <button class="back" onclick="showPage('page2')">← Back</button>
     <h1 id="yearTitle">Year Memories</h1>
     <div class="section-grid">
-        <div class="section-box" onclick="showPage('pageMusic')">🎵 Music of the Year</div>
-        <div class="section-box" onclick="showPage('pageAlbum')">📸 Album of the Year</div>
         <div class="section-box" onclick="showPage('pageLetters')">💌 Birthday Letters</div>
     </div>
-</div>
-
-<div id="pageMusic" class="page">
-    <button class="back" onclick="showPage('page3')">← Back</button>
-    <h1>Music of the Year</h1>
-    <p>(Place your songs here later)</p>
-</div>
-
-<div id="pageAlbum" class="page">
-    <button class="back" onclick="showPage('page3')">← Back</button>
-    <h1>Album of the Year</h1>
-    <div id="photoAlbumContainer" class="photo-album"></div>
 </div>
 
 <div id="pageLetters" class="page">
@@ -196,34 +177,5 @@ function loadGithubPhotos() {
         card.innerHTML = `<img src="${url}" alt="Photo ${index}"><p class="caption">Memory ${index+1} - ${yearText}</p>`;
         container.appendChild(card);
     });
-}
-
-/* ===== MUSIC SYSTEM ===== */
-const songs = [
-    "[https://www.soundjay.com/misc/sounds/bell-ringing-05.wav](https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3)"  // Sample working URL; replace with your MP3
-];
-
-let musicIndex = 0;
-let musicPlayer = document.getElementById("birthdayMusic");
-let isInitialized = false;
-
-function toggleMusic() {
-    if (!isInitialized) {
-        musicPlayer.src = songs[musicIndex];
-        musicPlayer.play().then(() => {
-            isInitialized = true;
-        }).catch(err => {
-            console.log("Play failed:", err);
-            alert("Music couldn't play. Try clicking again or check your browser settings.");
-        });
-        musicPlayer.onended = () => {
-            musicIndex = (musicIndex + 1) % songs.length;
-            musicPlayer.src = songs[musicIndex];
-            musicPlayer.play();
-        };
-    } else {
-        if (musicPlayer.paused) musicPlayer.play();
-        else musicPlayer.pause();
-    }
 }
 </script>

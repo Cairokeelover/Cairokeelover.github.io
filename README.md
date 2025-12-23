@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -17,9 +19,9 @@ body {
     height: 100vh;
     background: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .login input {
@@ -38,7 +40,6 @@ body {
     background: #f3a6b8;
     color: white;
     font-size: 16px;
-    cursor: pointer;
 }
 
 /* ---------- HEART PAGE ---------- */
@@ -66,29 +67,29 @@ body {
 }
 
 .heart {
-    font-size: 42px;
+    font-size: 45px;
     cursor: pointer;
     animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
+    50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
 
 /* ---------- FLOATING HEARTS ---------- */
 .floating-heart {
     position: absolute;
-    bottom: -10%;
-    font-size: 18px;
-    animation: floatUp 6s linear infinite;
-    opacity: 0.8;
+    bottom: -10px;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
 }
 
-@keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-120vh); opacity: 0; }
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
 }
 
 /* ---------- FINAL PAGE ---------- */
@@ -96,45 +97,34 @@ body {
     display: none;
     height: 100vh;
     background: #f4e3dc;
-    padding: 40px;
-}
-
-/* CONTENT */
-.content {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    height: 100%;
+    padding: 20px;
 }
 
-/* TEXT LEFT */
 .message {
-    width: 45%;
-    font-size: 20px;
+    width: 50%;
+    font-size: 18px;
     color: #6b3f3f;
     line-height: 1.6;
-    white-space: pre-line;
+    padding: 10px;
 }
 
-/* ROSE RIGHT */
-.rose {
-    width: 45%;
+.rose-box {
+    width: 50%;
     display: flex;
     justify-content: center;
 }
 
-svg {
-    width: 260px;
-}
-
-/* DRAW ROSE */
-path {
+/* ---------- ROSE DRAW ---------- */
+svg path {
     fill: none;
-    stroke: #e8a1b0;
-    stroke-width: 3;
+    stroke: #f3a6b8;
+    stroke-width: 4;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: draw 4s ease forwards;
+    animation: draw 3s ease forwards;
 }
 
 @keyframes draw {
@@ -143,18 +133,12 @@ path {
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
-    .content {
+    .final {
         flex-direction: column;
-        text-align: center;
     }
-
-    .message, .rose {
+    .message, .rose-box {
         width: 100%;
-    }
-
-    svg {
-        width: 220px;
-        margin-bottom: 20px;
+        text-align: center;
     }
 }
 </style>
@@ -165,8 +149,7 @@ path {
 <!-- LOGIN -->
 <div class="login" id="login">
     <h2>Welcome 💕</h2>
-    <input type="password" id="password" placeholder="Enter password"
-           onkeydown="if(event.key==='Enter') goHeart()">
+    <input type="password" id="password" placeholder="Password">
     <button onclick="goHeart()">Enter</button>
 </div>
 
@@ -179,85 +162,63 @@ path {
     </div>
 </div>
 
-<!-- FINAL PAGE -->
+<!-- FINAL -->
 <div class="final" id="finalPage">
-    <div class="content">
+    <div class="message" id="text"></div>
 
-        <!-- TEXT LEFT -->
-        <div class="message" id="typing"></div>
-
-        <!-- ROSE RIGHT -->
-        <div class="rose">
-            <svg id="roseSvg" viewBox="0 0 200 300">
-                <path d="M100 280 C90 220 70 180 100 150 C130 180 110 220 100 280"/>
-                <path d="M100 150 C60 120 60 80 100 60 C140 80 140 120 100 150"/>
-                <path d="M100 140 C80 110 90 90 100 80 C110 90 120 110 100 140"/>
-            </svg>
-        </div>
-
+    <div class="rose-box">
+        <svg id="roseSvg" width="180" height="220" viewBox="0 0 200 250">
+            <path d="M100 230 C90 180 60 160 80 120 C60 80 100 60 120 80 C160 60 190 100 160 130 C180 170 140 190 120 220" />
+        </svg>
     </div>
 </div>
 
 <script>
 function goHeart() {
-    const password = document.getElementById("password").value;
-
-    if (password === "jojo2008") {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("heartPage").style.display = "block";
-        startFloatingHearts();
-    } else {
+    const pass = document.getElementById("password").value;
+    if (pass !== "jojo2008") {
         alert("Wrong password 💔");
+        return;
     }
+    document.getElementById("login").style.display = "none";
+    document.getElementById("heartPage").style.display = "block";
+    createHearts();
 }
 
 function openGift() {
     document.getElementById("heartPage").style.display = "none";
-
-    const final = document.getElementById("finalPage");
-    final.style.display = "block";
-
-    // reset rose animation
-    const svg = document.getElementById("roseSvg");
-    svg.style.display = "none";
-    svg.offsetHeight;
-    svg.style.display = "block";
-
+    document.getElementById("finalPage").style.display = "flex";
     typeText();
 }
 
-/* FLOATING HEARTS */
-function startFloatingHearts() {
+function createHearts() {
     setInterval(() => {
         const heart = document.createElement("div");
         heart.className = "floating-heart";
-        heart.innerHTML = "💗";
+        heart.innerHTML = "💖";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        heart.style.animationDuration = (4 + Math.random() * 3) + "s";
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
     }, 400);
 }
 
-/* TYPING TEXT */
-const text = `Hey Jihan 💖
-
+const message =
+`Hey Jihan 💖
 Happy Birthday 🎉✨
 May God bless you 🙏
 And give you happiness 🌷
 
 Just want to say you’re sooo awesome 💕
 Hope you have a great day 🌸
-Today is your day 🎂💫
-
-💖🌷🎉`;
+Today is your day 🎂💫`;
 
 let i = 0;
 function typeText() {
-    if (i < text.length) {
-        document.getElementById("typing").innerHTML += text.charAt(i);
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i).replace("\n","<br>");
         i++;
-        setTimeout(typeText, 40);
+        setTimeout(typeText, 50);
     }
 }
 </script>

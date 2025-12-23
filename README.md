@@ -96,10 +96,15 @@ body {
     display: none;
     height: 100vh;
     background: #f4e3dc;
+    padding: 40px;
+}
+
+/* CONTENT */
+.content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px;
+    height: 100%;
 }
 
 /* TEXT LEFT */
@@ -122,7 +127,7 @@ svg {
     width: 260px;
 }
 
-/* DRAWING ANIMATION */
+/* DRAW ROSE */
 path {
     fill: none;
     stroke: #e8a1b0;
@@ -133,14 +138,12 @@ path {
 }
 
 @keyframes draw {
-    to {
-        stroke-dashoffset: 0;
-    }
+    to { stroke-dashoffset: 0; }
 }
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
-    .final {
+    .content {
         flex-direction: column;
         text-align: center;
     }
@@ -178,19 +181,21 @@ path {
 
 <!-- FINAL PAGE -->
 <div class="final" id="finalPage">
-    
-    <!-- TEXT LEFT -->
-    <div class="message" id="typing"></div>
+    <div class="content">
 
-    <!-- ROSE RIGHT (DRAWING) -->
-    <div class="rose">
-        <svg viewBox="0 0 200 300">
-            <path d="M100 280 C90 220 70 180 100 150 C130 180 110 220 100 280" />
-            <path d="M100 150 C60 120 60 80 100 60 C140 80 140 120 100 150" />
-            <path d="M100 140 C80 110 90 90 100 80 C110 90 120 110 100 140" />
-        </svg>
+        <!-- TEXT LEFT -->
+        <div class="message" id="typing"></div>
+
+        <!-- ROSE RIGHT -->
+        <div class="rose">
+            <svg id="roseSvg" viewBox="0 0 200 300">
+                <path d="M100 280 C90 220 70 180 100 150 C130 180 110 220 100 280"/>
+                <path d="M100 150 C60 120 60 80 100 60 C140 80 140 120 100 150"/>
+                <path d="M100 140 C80 110 90 90 100 80 C110 90 120 110 100 140"/>
+            </svg>
+        </div>
+
     </div>
-
 </div>
 
 <script>
@@ -208,7 +213,16 @@ function goHeart() {
 
 function openGift() {
     document.getElementById("heartPage").style.display = "none";
-    document.getElementById("finalPage").style.display = "flex";
+
+    const final = document.getElementById("finalPage");
+    final.style.display = "block";
+
+    // reset rose animation
+    const svg = document.getElementById("roseSvg");
+    svg.style.display = "none";
+    svg.offsetHeight;
+    svg.style.display = "block";
+
     typeText();
 }
 

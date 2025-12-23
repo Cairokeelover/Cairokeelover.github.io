@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Journey</title>
-<style>
-    body { margin:0; padding:0; font-family:"Poppins", sans-serif; background:#ffffff; transition:0.4s; }
-    .page { display:none; text-align:center; padding:40px; animation:fadeIn 0.7s ease; }
-    .active { display:block; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    h1 { font-size:48px; margin-bottom:10px; color:#333; }
-    h2 { font-size:24px; color:#666; margin-bottom:20px; }
-    p { max-width:500px; margin:0 auto; font-size:18px; color:#444; }
-    button { margin-top:30px; padding:14px 25px; border:none; background:black; color:white; font-size:17px; border-radius:12px; cursor:pointer; transition:0.3s; }
-    button:hover { transform:scale(1.07); }
-    .back { position:absolute; top:20px; left:20px; background:white; color:black; border:2px solid black; font-weight:bold; }
-    .year-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:20px; margin-top:40px; }
-    .year-box { background:white; border-radius:12px; border:2px solid #ddd; cursor:pointer; transition:0.3s; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
-    .year-box:hover { transform:scale(1.05); background:#fef9f0; }
-    .year-box .calendar-header { width:100%; background:#f5d76e; color:black; text-align:center; font-weight:bold; padding:5px 0; border-top-left-radius:10px; border-top-right-radius:10px; margin-bottom:8px; }
-    .year-box .calendar-year { font-size:22px; font-weight:bold; color:#333; flex-grow:1; display:flex; align-items:center; justify-content:center; }
-    .section-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:25px; margin-top:40px; }
-    .section-box { background:white; padding:35px; border-radius:16px; border:2px solid #ddd; font-size:20px; cursor:pointer; transition:0.3s; }
-    .section-box:hover { background:#f2f2f2; transform:scale(1.05); }
-    .confetti-bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
-    .confetti-piece { position:absolute; width:8px; height:14px; background:gold; opacity:0.7; transform:rotate(15deg); border-radius:2px; animation:fall linear infinite; }
-    @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
-    #loginPage { display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column; }
-    .login-box { text-align:center; }
-    input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; }
-    .error { color:red; display:none; margin-top:10px; }
-    img { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); object-fit:cover; }
-
-    .photo-album { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 25px; }
-    .photo-card { background: white; width: 260px; border-radius: 15px; padding: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.2s ease; }
-    .photo-card:hover { transform: scale(1.03); }
-    .photo-card img { width: 100%; border-radius: 12px; }
-    .caption { text-align: center; margin-top: 8px; font-size: 15px; color: #666; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Journey</title>
+    <style>
+        body { margin:0; padding:0; font-family:"Poppins", sans-serif; background:#ffffff; transition:0.4s; }
+        .page { display:none; text-align:center; padding:40px; animation:fadeIn 0.7s ease; }
+        .active { display:block; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        h1 { font-size:48px; margin-bottom:10px; color:#333; }
+        h2 { font-size:24px; color:#666; margin-bottom:20px; }
+        p { max-width:500px; margin:0 auto; font-size:18px; color:#444; }
+        button { margin-top:30px; padding:14px 25px; border:none; background:black; color:white; font-size:17px; border-radius:12px; cursor:pointer; transition:0.3s; }
+        button:hover { transform:scale(1.07); }
+        .back { position:absolute; top:20px; left:20px; background:white; color:black; border:2px solid black; font-weight:bold; }
+        .year-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:20px; margin-top:40px; }
+        .year-box { background:white; border-radius:12px; border:2px solid #ddd; cursor:pointer; transition:0.3s; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+        .year-box:hover { transform:scale(1.05); background:#fef9f0; }
+        .year-box .calendar-header { width:100%; background:#f5d76e; color:black; text-align:center; font-weight:bold; padding:5px 0; border-top-left-radius:10px; border-top-right-radius:10px; margin-bottom:8px; }
+        .year-box .calendar-year { font-size:22px; font-weight:bold; color:#333; flex-grow:1; display:flex; align-items:center; justify-content:center; }
+        .section-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:25px; margin-top:40px; }
+        .section-box { background:white; padding:35px; border-radius:16px; border:2px solid #ddd; font-size:20px; cursor:pointer; transition:0.3s; }
+        .section-box:hover { background:#f2f2f2; transform:scale(1.05); }
+        .confetti-bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
+        .confetti-piece { position:absolute; width:8px; height:14px; background:gold; opacity:0.7; transform:rotate(15deg); border-radius:2px; animation:fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+        #loginPage { display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column; animation:fadeIn 2s ease-in-out; }
+        .login-box { text-align:center; background:rgba(255,255,255,0.9); padding:20px; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.2); animation:bounceIn 1s ease-out; }
+        @keyframes bounceIn { 0% { transform:scale(0.3); opacity:0; } 50% { transform:scale(1.05); } 70% { transform:scale(0.9); } 100% { transform:scale(1); opacity:1; } }
+        input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; transition:0.3s; }
+        input[type=password]:focus { box-shadow:0 0 10px rgba(255,107,107,0.5); }
+        .error { color:red; display:none; margin-top:10px; animation:shake 0.5s ease-in-out; }
+        @keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-5px); } 75% { transform:translateX(5px); } }
+        img { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); object-fit:cover; }
+        .photo-album { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:25px; }
+        .photo-card { background:white; width:260px; border-radius:15px; padding:10px; box-shadow:0 4px 15px rgba(0,0,0,0.15); transition:transform 0.2s ease; }
+        .photo-card:hover { transform:scale(1.03); }
+        .photo-card img { width:100%; border-radius:12px; }
+        .caption { text-align:center; margin-top:8px; font-size:15px; color:#666; }
+    </style>
 </head>
 <body>
 
@@ -45,10 +47,12 @@
 
 <div id="loginPage">
     <div class="login-box">
-        <h2>🔒 Enter Password</h2>
-        <input type="password" id="passwordInput" placeholder="Password">
-        <button onclick="checkPassword()">Enter</button>
-        <p id="errorMsg" class="error">Incorrect password.</p>
+        <h1>Login to Jihan's Birthday Surprise</h1>
+        <form id="login-form">
+            <input type="password" id="passwordInput" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="errorMsg" class="error">Wrong password! Try again.</p>
     </div>
 </div>
 
@@ -104,15 +108,17 @@
 
 <script>
 /* ===== PASSWORD SYSTEM ===== */
-function checkPassword() {
-    const input = document.getElementById("passwordInput").value;
-    const errorMsg = document.getElementById("errorMsg");
-    if(input === "jojo2008") {
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const password = document.getElementById('passwordInput').value;
+    if (password === 'jojo2008') {
         localStorage.setItem("birthday_access","ok");
         document.getElementById("loginPage").style.display="none";
         document.getElementById("page1").classList.add("active");
-    } else { errorMsg.style.display="block"; }
-}
+    } else {
+        document.getElementById('errorMsg').style.display = 'block';
+    }
+});
 window.onload = () => {
     if(localStorage.getItem("birthday_access")==="ok") {
         document.getElementById("loginPage").style.display="none";
@@ -217,6 +223,7 @@ function toggleMusic() {
     }
 }
 </script>
-
+</body>
+</html>
 </body>
 </html>

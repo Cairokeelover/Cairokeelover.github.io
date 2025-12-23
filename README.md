@@ -115,20 +115,23 @@ body {
     width: 50%;
     display: flex;
     justify-content: center;
+    transform-origin: center center;
 }
 
-/* ---------- ROSE DRAW ---------- */
+/* ---------- ROSE DRAW & BLOOM ---------- */
 svg path {
     fill: none;
     stroke: #f3a6b8;
     stroke-width: 4;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: draw 3s ease forwards;
+    transform-origin: center center;
 }
 
-@keyframes draw {
-    to { stroke-dashoffset: 0; }
+.rose-box svg {
+    transform: scale(0.8);
+    transition: transform 0.5s ease;
+}
+.rose-box.bloom svg {
+    transform: scale(1);
 }
 
 /* ---------- MOBILE ---------- */
@@ -139,6 +142,10 @@ svg path {
     .message, .rose-box {
         width: 100%;
         text-align: center;
+    }
+    .rose-box svg {
+        width: 150px;
+        height: 180px;
     }
 }
 </style>
@@ -189,6 +196,7 @@ function openGift() {
     document.getElementById("heartPage").style.display = "none";
     document.getElementById("finalPage").style.display = "flex";
     typeText();
+    animateRose();
 }
 
 function createHearts() {
@@ -199,7 +207,7 @@ function createHearts() {
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = (4 + Math.random() * 3) + "s";
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+        heart.addEventListener('animationend', () => heart.remove());
     }, 400);
 }
 
@@ -215,11 +223,34 @@ Today is your day 🎂💫`;
 
 let i = 0;
 function typeText() {
+    const textEl = document.getElementById("text");
     if (i < message.length) {
-        document.getElementById("text").innerHTML += message.charAt(i).replace("\n","<br>");
+        textEl.innerHTML += message[i] === "\n" ? "<br>" : message[i];
         i++;
         setTimeout(typeText, 50);
     }
+}
+
+function animateRose() {
+    const path = document.querySelector("#roseSvg path");
+    const roseBox = document.querySelector(".rose-box");
+    const length = path.getTotalLength();
+
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+
+    setTimeout(() => {
+        roseBox.classList.add("bloom");
+    }, 100);
+
+    path.animate([
+        { strokeDashoffset: length },
+        { strokeDashoffset: 0 }
+    ], {
+        duration: 3000,
+        easing: "ease",
+        fill: "forwards"
+    });
 }
 </script>
 

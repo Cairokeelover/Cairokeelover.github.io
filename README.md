@@ -1,388 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Jihan!</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            transition: background 0.5s ease;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Journey</title>
+<style>
+    body { margin:0; padding:0; font-family:"Poppins", sans-serif; background:#ffffff; transition:0.4s; }
+    .page { display:none; text-align:center; padding:40px; animation:fadeIn 0.7s ease; }
+    .active { display:block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    h1 { font-size:48px; margin-bottom:10px; color:#333; }
+    h2 { font-size:24px; color:#666; margin-bottom:20px; }
+    p { max-width:500px; margin:0 auto; font-size:18px; color:#444; }
+    button { margin-top:30px; padding:14px 25px; border:none; background:black; color:white; font-size:17px; border-radius:12px; cursor:pointer; transition:0.3s; }
+    button:hover { transform:scale(1.07); }
+    .back { position:absolute; top:20px; left:20px; background:white; color:black; border:2px solid black; font-weight:bold; }
+    .year-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:20px; margin-top:40px; }
+    .year-box { background:white; border-radius:12px; border:2px solid #ddd; cursor:pointer; transition:0.3s; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+    .year-box:hover { transform:scale(1.05); background:#fef9f0; }
+    .year-box .calendar-header { width:100%; background:#f5d76e; color:black; text-align:center; font-weight:bold; padding:5px 0; border-top-left-radius:10px; border-top-right-radius:10px; margin-bottom:8px; }
+    .year-box .calendar-year { font-size:22px; font-weight:bold; color:#333; flex-grow:1; display:flex; align-items:center; justify-content:center; }
+    .section-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:25px; margin-top:40px; }
+    .section-box { background:white; padding:35px; border-radius:16px; border:2px solid #ddd; font-size:20px; cursor:pointer; transition:0.3s; }
+    .section-box:hover { background:#f2f2f2; transform:scale(1.05); }
+    .confetti-bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
+    .confetti-piece { position:absolute; width:8px; height:14px; background:gold; opacity:0.7; transform:rotate(15deg); border-radius:2px; animation:fall linear infinite; }
+    @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+    #loginPage { display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column; }
+    .login-box { text-align:center; }
+    input[type=password] { padding:10px; font-size:16px; border-radius:8px; border:2px solid #ccc; margin-top:10px; }
+    .error { color:red; display:none; margin-top:10px; }
+    img { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); object-fit:cover; }
 
-        /* Login Page Styles (from previous version) */
-        #login-container {
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            animation: bounceIn 1s ease-out;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        #login-form input, #login-form button {
-            margin: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        #login-form input:focus {
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-        }
-
-        #login-form button {
-            background: #ff6b6b;
-            color: white;
-            cursor: pointer;
-        }
-
-        #login-form button:hover {
-            background: #ff5252;
-            transform: scale(1.1);
-        }
-
-        #error {
-            color: red;
-            display: none;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Heart Page Styles */
-        .heart-page {
-            display: none;
-            height: 100vh;
-            background: #f4e3dc;
-            position: relative;
-            animation: slideIn 1s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-
-        .guide {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #a56a6a;
-        }
-
-        .line {
-            width: 2px;
-            height: 60px;
-            background: #a56a6a;
-            margin: 10px auto;
-        }
-
-        .heart {
-            font-size: 45px;
-            cursor: pointer;
-            animation: pulse 1.5s infinite, glow 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 5px #ff69b4; }
-            to { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4; }
-        }
-
-        /* Floating Hearts */
-        .floating-heart {
-            position: absolute;
-            bottom: -10px;
-            font-size: 20px;
-            animation: float 6s linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-120vh); opacity: 0; }
-        }
-
-        /* Final Page Styles */
-        .final {
-            display: none;
-            height: 100vh;
-            background: #f4e3dc;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        .message {
-            width: 50%;
-            font-size: 18px;
-            color: #6b3f3f;
-            line-height: 1.6;
-            padding: 10px;
-            animation: sparkle 2s infinite alternate;
-        }
-
-        @keyframes sparkle {
-            from { text-shadow: 0 0 5px #ffd700; }
-            to { text-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700; }
-        }
-
-        .rose-box {
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            perspective: 1000px; /* For 3D effect */
-        }
-
-        /* 3D Rose */
-        .rose-3d {
-            position: relative;
-            width: 200px;
-            height: 250px;
-            transform-style: preserve-3d;
-            animation: bloom3d 3s ease-in-out forwards;
-        }
-
-        @keyframes bloom3d {
-            0% { transform: scale(0.5) rotateX(0deg) rotateY(0deg); }
-            50% { transform: scale(1.2) rotateX(180deg) rotateY(180deg); }
-            100% { transform: scale(1) rotateX(360deg) rotateY(360deg); }
-        }
-
-        .petal {
-            position: absolute;
-            width: 80px;
-            height: 120px;
-            background: linear-gradient(45deg, #ff69b4, #ffb6c1);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-            transform-origin: bottom center;
-        }
-
-        .petal:nth-child(1) { transform: rotateY(0deg) translateZ(20px); }
-        .petal:nth-child(2) { transform: rotateY(72deg) translateZ(20px); }
-        .petal:nth-child(3) { transform: rotateY(144deg) translateZ(20px); }
-        .petal:nth-child(4) { transform: rotateY(216deg) translateZ(20px); }
-        .petal:nth-child(5) { transform: rotateY(288deg) translateZ(20px); }
-
-        .stem {
-            position: absolute;
-            bottom: 0;
-            width: 10px;
-            height: 150px;
-            background: #228B22;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-
-        .center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: #FFD700;
-            border-radius: 50%;
-            transform: translate(-50%, -50%) translateZ(30px);
-        }
-
-        /* Confetti Rain */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: gold;
-            animation: confettiFall 5s linear infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-100vh) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
-        }
-
-        /* Music Toggle */
-        #music-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .final {
-                flex-direction: column;
-            }
-            .message, .rose-box {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
+    .photo-album { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 25px; }
+    .photo-card { background: white; width: 260px; border-radius: 15px; padding: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.2s ease; }
+    .photo-card:hover { transform: scale(1.03); }
+    .photo-card img { width: 100%; border-radius: 12px; }
+    .caption { text-align: center; margin-top: 8px; font-size: 15px; color: #666; }
+</style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="login-container">
-        <div class="container">
-            <h1>Login to Jihan's Birthday Surprise</h1>
-            <form id="login-form">
-                <input type="password" id="password" placeholder="Enter Password" required>
-                <button type="submit">Login</button>
-            </form>
-            <p id="error">Wrong password! Try again.</p>
-        </div>
+
+<div class="confetti-bg" id="confetti"></div>
+
+<div id="loginPage">
+    <div class="login-box">
+        <h2>🔒 Enter Password</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button onclick="checkPassword()">Enter</button>
+        <p id="errorMsg" class="error">Incorrect password.</p>
     </div>
+</div>
 
-    <!-- Heart Page -->
-    <div class="heart-page" id="heartPage">
-        <div class="guide">
-            <div class="line"></div>
-            <div>Click here</div>
-            <div class="heart" onclick="openGift()">❤️</div>
-        </div>
+<div id="page1" class="page">
+    <h1>🎉 Happy Birthday Jojo 🎉</h1>
+    <h2>03 / 03 / 2008</h2>
+    <p>
+        Happy birthday Jihan, with all love.<br>
+        I wish for you all the best in this year and all the years coming.<br>
+        May your journey be full of happiness, success, and beautiful memories.
+    </p>
+
+    <!-- Music Player -->
+    <audio id="birthdayMusic"></audio>
+    <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
+
+    <button onclick="showPage('page2')">Enter the Journey →</button>
+</div>
+
+<div id="page2" class="page">
+    <button class="back" onclick="showPage('page1')">← Back</button>
+    <h1>Select a Year</h1>
+    <div class="year-grid"></div>
+</div>
+
+<div id="page3" class="page">
+    <button class="back" onclick="showPage('page2')">← Back</button>
+    <h1 id="yearTitle">Year Memories</h1>
+    <div class="section-grid">
+        <div class="section-box" onclick="showPage('pageMusic')">🎵 Music of the Year</div>
+        <div class="section-box" onclick="showPage('pageAlbum')">📸 Album of the Year</div>
+        <div class="section-box" onclick="showPage('pageLetters')">💌 Birthday Letters</div>
     </div>
+</div>
 
-    <!-- Final Page -->
-    <div class="final" id="finalPage">
-        <button id="music-toggle" onclick="toggleMusic()">🎵</button>
-        <div class="message" id="text"></div>
-        <div class="rose-box">
-            <div class="rose-3d">
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="stem"></div>
-                <div class="center"></div>
-            </div>
-        </div>
-    </div>
+<div id="pageMusic" class="page">
+    <button class="back" onclick="showPage('page3')">← Back</button>
+    <h1>Music of the Year</h1>
+    <p>(Place your songs here later)</p>
+</div>
 
-    <!-- Background Music (Optional) -->
-    <audio id="bg-music" loop>
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav"> <!-- Replace with a birthday tune URL if available -->
-    </audio>
+<div id="pageAlbum" class="page">
+    <button class="back" onclick="showPage('page3')">← Back</button>
+    <h1>Album of the Year</h1>
+    <div id="photoAlbumContainer" class="photo-album"></div>
+</div>
 
-    <script>
-        // Login Logic
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('password').value;
-            if (password === 'jojo2008') {
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('heartPage').style.display = 'block';
-                createHearts();
-            } else {
-                document.getElementById('error').style.display = 'block';
-            }
-        });
+<div id="pageLetters" class="page">
+    <button class="back" onclick="showPage('page3')">← Back</button>
+    <h1>Birthday Letters</h1>
+    <p>(Letters + names go here)</p>
+</div>
 
-        // Heart Click to Open Gift
-        function openGift() {
-            document.getElementById('heartPage').style.display = 'none';
-            document.getElementById('finalPage').style.display = 'flex';
-            typeText();
-            startConfetti();
-        }
+<script>
+/* ===== PASSWORD SYSTEM ===== */
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const errorMsg = document.getElementById("errorMsg");
+    if(input === "jojo2008") {
+        localStorage.setItem("birthday_access","ok");
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("page1").classList.add("active");
+    } else { errorMsg.style.display="block"; }
+}
+window.onload = () => {
+    if(localStorage.getItem("birthday_access")==="ok") {
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("page1").classList.add("active");
+    }
+    generateYears();
+    createConfetti();
+};
 
-        // Floating Hearts
-        function createHearts() {
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.className = 'floating-heart';
-                heart.innerHTML = '💖';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (4 + Math.random() * 3) + 's';
-                document.body.appendChild(heart);
-                heart.addEventListener('animationend', () => heart.remove());
-            }, 400);
-        }
+/* ===== PAGE NAVIGATION ===== */
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
 
-        // Typing Text
-        const message = `Hey Jihan 💖\nHappy Birthday 🎉✨\nMay God bless you 🙏\nAnd give you happiness 🌷\n\nJust want to say you’re sooo awesome 💕\nHope you have a great day 🌸\nToday is your day 🎂💫`;
-        let i = 0;
-        function typeText() {
-            const textEl = document.getElementById('text');
-            if (i < message.length) {
-                textEl.innerHTML += message[i] === '\n' ? '<br>' : message[i];
-                i++;
-                setTimeout(typeText, 50);
-            }
-        }
+/* ===== CONFETTI ===== */
+function createConfetti() {
+    const confettiContainer = document.getElementById("confetti");
+    const colors = ["gold","#f5d76e","#e6c24c","#ffeb99"];
+    for(let i=0;i<60;i++){
+        let piece=document.createElement("div");
+        piece.classList.add("confetti-piece");
+        piece.style.left=Math.random()*100+"vw";
+        piece.style.animationDuration=3+Math.random()*4+"s";
+        piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+        confettiContainer.appendChild(piece);
+    }
+}
 
-        // Confetti Rain
-        function startConfetti() {
-            setInterval(() => {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 5000);
-            }, 200);
-        }
+/* ===== YEARS DYNAMIC ===== */
+function generateYears() {
+    const grid = document.querySelector(".year-grid");
+    for(let year=2025; year<=2040; year++){
+        let div=document.createElement("div");
+        div.className="year-box";
+        div.innerHTML=`<div class="calendar-header">Year</div><div class="calendar-year">${year}</div>`;
+        div.onclick = () => {
+            document.getElementById("yearTitle").innerText=year+" Memories";
+            currentYear = year;
+            showPage('page3');
+        };
+        grid.appendChild(div);
+    }
+    let more = document.createElement("div");
+    more.className="year-box";
+    more.innerHTML=`<div class="calendar-header">Year</div><div class="calendar-year">more...</div>`;
+    more.onclick = ()=>{ alert("More years coming soon!"); };
+    grid.appendChild(more);
+}
 
-        // Music Toggle
-        let musicPlaying = false;
-        function toggleMusic() {
-            const audio = document.getElementById('bg-music');
-            if (musicPlaying) {
-                audio.pause();
-                musicPlaying = false;
-            } else {
-                audio.play();
-                musicPlaying = true;
-            }
-        }
-    </script>
+let currentYear = 2025;
+
+/* ===== PHOTO ALBUM ===== */
+const albumPhotos = {
+    "2025": [
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-04%20135123.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-09-06%20171636.png",
+        "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/8e1708720a0fbf8e96846d8dc8f17998b596c9c4/Screenshot%202025-10-22%20221310.png"
+    ]
+};
+
+function loadGithubPhotos() {
+    const yearText = currentYear.toString();
+    const container = document.getElementById("photoAlbumContainer");
+    container.innerHTML = "";
+    const photos = albumPhotos[yearText];
+    if(!photos || photos.length === 0) {
+        container.innerHTML = "<p>No photos for this year yet.</p>";
+        return;
+    }
+    photos.forEach((url,index)=>{
+        const card = document.createElement("div");
+        card.className = "photo-card";
+        card.innerHTML = `<img src="${url}" alt="Photo ${index}"><p class="caption">Memory ${index+1} - ${yearText}</p>`;
+        container.appendChild(card);
+    });
+}
+
+/* ===== MUSIC SYSTEM ===== */
+const songs = [
+    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
+];
+
+let musicIndex = 0;
+let musicPlayer = document.getElementById("birthdayMusic");
+let isInitialized = false;
+
+function toggleMusic() {
+    if(!isInitialized) {
+        // First click: initialize audio and play
+        musicPlayer.src = songs[musicIndex];
+        musicPlayer.play().catch(err => console.log("Play prevented:", err));
+        musicPlayer.onended = () => {
+            musicIndex = (musicIndex + 1) % songs.length;
+            musicPlayer.src = songs[musicIndex];
+            musicPlayer.play().catch(err => console.log("Play prevented:", err));
+        };
+        isInitialized = true;
+    } else {
+        if(musicPlayer.paused) musicPlayer.play();
+        else musicPlayer.pause();
+    }
+}
+</script>
+
 </body>
 </html>

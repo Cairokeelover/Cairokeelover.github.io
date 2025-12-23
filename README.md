@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +66,7 @@
     </p>
 
     <!-- Music Player -->
-    <audio id="birthdayMusic"></audio>
+    <audio id="birthdayMusic" preload="auto"></audio>
     <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
 
     <button onclick="showPage('page2')">Enter the Journey →</button>
@@ -207,23 +207,22 @@ let musicPlayer = document.getElementById("birthdayMusic");
 let isInitialized = false;
 
 function toggleMusic() {
-    if(!isInitialized) {
-        // First click: initialize audio and play
+    if (!isInitialized) {
         musicPlayer.src = songs[musicIndex];
-        musicPlayer.play().catch(err => console.log("Play prevented:", err));
+        musicPlayer.play().then(() => {
+            isInitialized = true;
+        }).catch(err => {
+            console.log("Play failed:", err);
+            alert("Music couldn't play. Try clicking again or check your browser settings.");
+        });
         musicPlayer.onended = () => {
             musicIndex = (musicIndex + 1) % songs.length;
             musicPlayer.src = songs[musicIndex];
-            musicPlayer.play().catch(err => console.log("Play prevented:", err));
+            musicPlayer.play();
         };
-        isInitialized = true;
     } else {
-        if(musicPlayer.paused) musicPlayer.play();
+        if (musicPlayer.paused) musicPlayer.play();
         else musicPlayer.pause();
     }
 }
 </script>
-</body>
-</html>
-</body>
-</html>

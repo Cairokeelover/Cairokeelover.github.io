@@ -1,4 +1,5 @@
 
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +67,7 @@
     </p>
 
     <!-- Music Player -->
-    <audio id="birthdayMusic" preload="auto"></audio>
+    <audio id="birthdayMusic" preload="auto" controls></audio>  <!-- Added 'controls' for debugging -->
     <button onclick="toggleMusic()">⏯ Play / Pause Music</button>
 
     <button onclick="showPage('page2')">Enter the Journey →</button>
@@ -199,7 +200,7 @@ function loadGithubPhotos() {
 
 /* ===== MUSIC SYSTEM ===== */
 const songs = [
-    "https://raw.githubusercontent.com/Cairokeelover/Cairokeelover.github.io/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3"
+    "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"  // Sample working URL; replace with your MP3
 ];
 
 let musicIndex = 0;

@@ -200,7 +200,7 @@ function loadGithubPhotos() {
 
 /* ===== MUSIC SYSTEM ===== */
 const songs = [
-    "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"  // Sample working URL; replace with your MP3
+    "[https://www.soundjay.com/misc/sounds/bell-ringing-05.wav](https://github.com/Cairokeelover/Cairokeelover.github.io/blob/main/Eva%20-%20Anniversaire%20(Audio%20Officiel).mp3)"  // Sample working URL; replace with your MP3
 ];
 
 let musicIndex = 0;
